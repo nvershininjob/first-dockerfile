@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web-app:
+    build: .
+    expose:
+      - "8080"
+
+  proxy-server:
+    image: nginx:alpine
+    ports:
+      - "8085:80"
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - web-app
